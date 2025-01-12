@@ -1,4 +1,4 @@
-import User from '../models/auth_model.js';
+import User from '../models/user.js';
 
 const validateUser = async (req, res, next) => {
     try {

@@ -31,6 +31,9 @@ const authController = {
             country: Joi.string().optional(), 
             state: Joi.string().optional(),
             city: Joi.string().optional(),
+            Walk_of_life: Joi.string().required(),
+            Interest: Joi.array().items(Joi.string()).required(),
+            Biography: Joi.string().optional().min(20).max(320)
         });
 
         const {error}=userSchema.validate(req.body);
@@ -48,7 +51,7 @@ const authController = {
             });
             if (isDataExist) {
                 return next(
-                    new Error("User already exists with this email or phone number")
+                    new Error("User already exists with this Email Address")
                 );
             };
             const result=await AuthService.CreateUser(req.body);
@@ -65,6 +68,7 @@ const authController = {
     //#endregion
 
     async editProfile(req,res,next){
+
         const userSchema = Joi.object({
             profilePicture: Joi.string().optional(), 
             firstName: Joi.string().required(), 

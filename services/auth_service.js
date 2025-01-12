@@ -17,34 +17,40 @@ const AuthService = {
             password,
             country,
             state,
-            city
-        }=data;
-
+            city,
+            Walk_of_life,
+            Interest,
+            Biography
+        } = data;
         console.log(data);
 
         const encryptedpassword=await  encrypt.hashPassword(password);
 
-        const UserDetails=new User({
+        const userDetails = new User({
             profilePicture,
             firstName,
             lastName,
             dateOfBirth,
             email,
             phone,
-            password:encryptedpassword,
+            password: encryptedpassword,
             country,
             state,
             city,
-            isDeleted:false,
-            isPhoneNumberVerified:false
+            Walk_of_life,
+            Interest,
+            Biography,
+            isDeleted: false,
+            isPhoneNumberVerified: false
         });
 
         try{
-            const SavedUser=await UserDetails.save();
-            const accesstoken=await SavedUser.generateAuthToken();
+            const SavedUser=await userDetails.save();
+            const accessToken=await SavedUser.generateAuthToken();
+            SavedUser.accessToken = accessToken;
+
             return {
-                user:SavedUser,
-                accesstoken
+                user:SavedUser
             }
 
         }catch(error){

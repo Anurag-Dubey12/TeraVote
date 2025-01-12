@@ -62,6 +62,22 @@ const userSchema =  mongoose.Schema({
         type: String,
         required: false
     },
+    Walk_of_life: {
+      type: String,
+      required: true,
+      enum: ['Student', 'Private Employee', 'Government', 'Self-Employed', 'Others'],
+  },
+  Interest: {
+      type: [String],
+      required: true,
+      enum: ['Business', 'Current Affairs', 'India', 'World', 'Technology', 'Science', 'Health', 'Movies', 'Biography']
+  },
+  Biography: {
+      type: String,
+      required: false,
+      minlength: 20,
+      maxlength: 320
+  },
     isDeleted: {
         type: Boolean,
         default: false,
