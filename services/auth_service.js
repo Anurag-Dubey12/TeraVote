@@ -1,64 +1,65 @@
+// authService.js
 import { User } from "../models/index.js";
-import encrypt from '../middleware/encryption.js' 
+import encrypt from '../middleware/encryption.js';
 
 const AuthService = {
+    async CreateUser(data) {
+        try {
+            const {
+                profilePicture,
+                firstName,
+                lastName,
+                dateOfBirth,
+                emailAddress,
+                phone,
+                password,
+                country,
+                state,
+                city,
+                Walk_of_life,
+                Interest,
+                Biography
+            } = data;
 
-    //#region create user
+            const encryptedPassword = await encrypt.hashPassword(password);
+            
+            const userDetails = new User({
+                profilePicture,
+                firstName,
+                lastName,
+                dateOfBirth,
+                emailAddress,
+                phone,
+                password: encryptedPassword,
+                country,
+                state,
+                city,
+                Walk_of_life,
+                Interest,
+                Biography,
+                isDeleted: false,
+                isPhoneNumberVerified: false
+            });
 
-    async CreateUser(data){
+            const savedUser = await userDetails.save();
+            const accessToken = await savedUser.generateAuthToken();
 
-        const {
-            profilePicture,
-            firstName,
-            lastName,
-            dateOfBirth,
-            email,
-            phone,
-            password,
-            country,
-            state,
-            city,
-            Walk_of_life,
-            Interest,
-            Biography
-        } = data;
-        console.log(data);
-
-        const encryptedpassword=await  encrypt.hashPassword(password);
-
-        const userDetails = new User({
-            profilePicture,
-            firstName,
-            lastName,
-            dateOfBirth,
-            email,
-            phone,
-            password: encryptedpassword,
-            country,
-            state,
-            city,
-            Walk_of_life,
-            Interest,
-            Biography,
-            isDeleted: false,
-            isPhoneNumberVerified: false
-        });
-
-        try{
-            const SavedUser=await userDetails.save();
-            const accessToken=await SavedUser.generateAuthToken();
-            SavedUser.accessToken = accessToken;
+            const userData = savedUser.toObject();
+            delete userData.password;
+            delete userData.__v;
 
             return {
-                user:SavedUser
-            }
+                user: userData,
+            };
 
-        }catch(error){
-            console.log("Error in creating user",error);
+        } catch (error) {
+            console.error("Error in AuthService.CreateUser:", error);
+            return {
+                success: false,
+                message: error.message || "Failed to create user"
+            };
         }
     }
-
-    //#endregion
-}
+};
 
 export default AuthService;

@@ -19,7 +19,7 @@ const authController = {
                 }
                 return value;
             }, 'Age Validation'),
-            email: Joi.string().email({ minDomainSegments: 2 }).required(),
+            emailAddress: Joi.string().email({ minDomainSegments: 2 }).required(),
             phone: Joi.string().optional(),
             password: Joi.string()
                 .min(5)
@@ -41,19 +41,21 @@ const authController = {
             return res.status(400).json({message:error.message});
         }
         try{
-
-            const isDataExist=await User.exists({
-                $or:[
-                    {emailAddress:req.body.emailAddress},
-                    {phone:req.body.phone}
-                ],
+            const { emailAddress } = req.body;
+            if (!emailAddress || emailAddress.trim() === '') {
+                return res.status(400).json({ message: "Valid emailAddress is required" });
+            }
+            
+            // Check if user already exists
+            const isDataExist = await User.findOne({
+                emailAddress: emailAddress.toLowerCase(),
                 isDeleted: false
             });
             if (isDataExist) {
                 return next(
-                    new Error("User already exists with this Email Address")
+                    new Error("User already exists with this emailAddress Address")
                 );
-            };
+            }
             const result=await AuthService.CreateUser(req.body);
             return res.status(201).json({
                 success: true,
@@ -82,7 +84,7 @@ const authController = {
                 }
                 return value;
             }, 'Age Validation'),
-            email: Joi.string().email({ minDomainSegments: 2 }).required(),
+            emailAddress: Joi.string().emailAddress({ minDomainSegments: 2 }).required(),
             phone: Joi.string().optional(),
             password: Joi.string()
                 .min(5)

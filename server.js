@@ -12,6 +12,7 @@ const app = express();
 mongoose.connect(MONGO_DB_URL, {
 useNewUrlParser: true,
 useUnifiedTopology: true,
+dbName: 'Teravote'
 });
 
 const db = mongoose.connection;

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import jwt from '../helper/jwtService.js'
+import jwt from '../helper/jwtService.js';
 
-const userSchema =  mongoose.Schema({
+const userSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
         required: false
@@ -16,21 +16,14 @@ const userSchema =  mongoose.Schema({
     },
     dateOfBirth: {
         type: Date,
-        required: true,
-        // validate: {
-        //     validator: function(value) {
-        //         const ageDiff = Date.now() - value.getTime();
-        //         const ageDate = new Date(ageDiff);
-        //         return Math.abs(ageDate.getUTCFullYear() - 1970) > 12;
-        //     },
-        //     message: 'User must be at least 13 years old.'
-        // }
+        required: true
     },
-    email: {
+    emailAddress: {
         type: String,
         required: true,
         unique: true,
-        match: [/.+\@.+\..+/, 'Please fill a valid email address']
+        lowercase: true,
+        sparse: true,
     },
     phone: {
         type: String,
@@ -39,17 +32,16 @@ const userSchema =  mongoose.Schema({
     isPhoneNumberVerified: {
         type: Boolean,
         default: false,
-      },
+    },
     password: {
         type: String,
         required: true,
         minlength: 5,
-        // match: [/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/, 'Password must be alphanumeric and contain no spaces']
     },
     tokens: {
         type: String,
         required: false
-      },
+    },
     country: {
         type: String,
         required: false
@@ -63,61 +55,65 @@ const userSchema =  mongoose.Schema({
         required: false
     },
     Walk_of_life: {
-      type: String,
-      required: true,
-      enum: ['Student', 'Private Employee', 'Government', 'Self-Employed', 'Others'],
-  },
-  Interest: {
-      type: [String],
-      required: true,
-      enum: ['Business', 'Current Affairs', 'India', 'World', 'Technology', 'Science', 'Health', 'Movies', 'Biography']
-  },
-  Biography: {
-      type: String,
-      required: false,
-      minlength: 20,
-      maxlength: 320
-  },
+        type: String,
+        required: true,
+        enum: ['Student', 'Private Employee', 'Government', 'Self-Employed', 'Others'],
+    },
+    Interest: {
+        type: [String],
+        required: true,
+        enum: ['Business', 'Current Affairs', 'India', 'World', 'Technology', 'Science', 'Health', 'Movies', 'Biography']
+    },
+    Biography: {
+        type: String,
+        required: false,
+        minlength: 20,
+        maxlength: 320
+    },
     isDeleted: {
         type: Boolean,
         default: false,
-      },
+    },
     createdAt: {
         type: Date,
         default: Date.now,
-      },
+    }
+}, {
+    timestamps: true,
 });
-userSchema.set("timestamps", true);
 
+// Token generation method
 userSchema.methods.generateAuthToken = async function() {
-  const user = this;
-  const payload = {
-      userId: user._id,
-      email: user.email
-  };
-  
-  const token = jwt.sign(payload);
-  
-  this.tokens = token;  
-  await this.save();
-  return token;
+    const user = this;
+    const payload = {
+        userId: user._id,
+        email: user.email
+    };
+
+    const token = jwt.sign(payload);
+    this.tokens = token;
+    await this.save();
+    return token;
 };
 
-
+// Token removal method
 userSchema.methods.removeToken = async function(tokenToRemove) {
-  this.tokens = this.tokens.filter(token => token.token !== tokenToRemove);
-  await this.save();
+    this.tokens = this.tokens.filter(token => token.token !== tokenToRemove);
+    await this.save();
 };
 
-// Method to remove all tokens (logout from all devices)
+// Remove all tokens method
 userSchema.methods.removeAllTokens = async function() {
-  this.tokens = [];
-  await this.save();
+    this.tokens = [];
+    await this.save();
 };
 
-// Method to find token
+// Token validation method
 userSchema.methods.hasValidToken = function(tokenToCheck) {
-  return this.tokens.some(token => token.token === tokenToCheck);
+    return this.tokens.some(token => token.token === tokenToCheck);
 };
 
+// const User = mongoose.model("User", userSchema);
+
+// export default User;
 export default mongoose.model("User", userSchema);
