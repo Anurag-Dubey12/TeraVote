@@ -1,3 +1,5 @@
+// Copyright (C) 2025 TeraVote All rights reserved.
+
 import mongoose from "mongoose";
 import jwt from '../helper/jwtService.js';
 
@@ -13,6 +15,11 @@ const userSchema = new mongoose.Schema({
     lastName: {
         type: String,
         required: false
+    },
+    Gender: {
+        type: String,
+        required: true,
+        enum:['Male','Female','Others']
     },
     dateOfBirth: {
         type: Date,
@@ -69,6 +76,20 @@ const userSchema = new mongoose.Schema({
         required: false,
         minlength: 20,
         maxlength: 320
+    },
+    followers: {
+        type: [{
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            followedAt: { type: Date, default: Date.now }
+        }],
+        default: []
+    },
+    following: {
+        type: [{
+            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+            followedAt: { type: Date, default: Date.now }
+        }],
+        default: []
     },
     isDeleted: {
         type: Boolean,

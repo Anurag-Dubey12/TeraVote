@@ -4,5 +4,7 @@ import validateUser from "../middleware/validateUser.js";
 
 const router = express.Router();
 router.post("/register" ,authController.CreateUser);
-router.use(validateUser); 
+router.post("/editprofile",validateUser,authController.editProfile);
+router.delete("/deleteuser",validateUser,authController.deleteUser);
+router.get("/getProfile",validateUser,authController.getProfile);
 export default router;

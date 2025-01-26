@@ -1,90 +1,31 @@
 import User from '../models/user.js';
-
+import CustomErrorHandler from '../helper/CustomErrorHandler.js';
+import jwtService from '../helper/jwtService.js';
 const validateUser = async (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    console.log("authHeader:", authHeader);
+    if (!authHeader) {
+        console.log("Authorization header is missing");
+        return next(CustomErrorHandler.unAuthorized("Authorization header is missing.")); 
+      }
+     
+      const token = authHeader.split(" ")[1];
     try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({
-                success: false,
-                message: 'No token provided'
-            });
-        }
 
-        const token = authHeader.split(' ')[1];
-        
-        // Verify token
-        const decoded = jwtService.verify(token);
-        
-        // Find user and check if token is still valid in database
-        const user = await User.findById(decoded.userId);
-        if (!user || !user.hasValidToken(token)) {
-            return res.status(401).json({
-                success: false,
-                message: 'Invalid or expired token'
-            });
-        }
-
-        req.user = { userId: decoded.userId };
+        const {userId} = jwtService.verify(token);
+        req.user = User;
+           const userData = await User.findOne({ _id: userId });
+           if (!userData) {
+            console.log("User not found");
+            return next(CustomErrorHandler.unAuthorized("User not found"));
+          }
+          
+          global.user = userData;
         next();
-    } catch (error) {
-        return res.status(401).json({
-            success: false,
-            message: 'Invalid or expired token'
-        });
-    }
+    } catch (err) {
+        console.log("JWT verification error:", err);
+        return next(CustomErrorHandler.unAuthorized("Invalid or expired token."));
+      }
 };
 
 export default validateUser;
-// import User from '../models/user.js';
-// import jwtService from '../helper/jwtService.js';
-
-
-// const validateUser  = async (req, res, next) => {
-//     try {
-//         // Extract authorization header from request
-//         const authHeader = req.headers.authorization;
-
-//         // Check if authorization header is present and in correct format
-//         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: 'No Authorization token is provided',
-//                 error: 'Unauthorized'
-//             });
-//         }
-
-//         // Extract token from authorization header
-//         const token = authHeader.split(' ')[1];
-
-//         // Verify token using JWT service
-//         const decoded = jwtService.verify(token);
-
-//         // Find user by ID and check if token is still valid in database
-//         const user = await User.findById(decoded.userId);
-
-//         // Check if user exists and token is valid
-//         if (!user || !user.hasValidToken(token)) {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: 'Invalid or expired token',
-//                 error: 'Unauthorized'
-//             });
-//         }
-
-//         // Set user data in request object and global object
-//         req.user = { userId: decoded.userId, ...user.toJSON() };
-//         global.user = req.user;
-
-//         // Proceed to next middleware function
-//         next();
-//     } catch (error) {
-//         // Handle any errors during token verification or user retrieval
-//         return res.status(401).json({
-//             success: false,
-//             message: 'Invalid or expired token',
-//             error: 'Unauthorized'
-//         });
-//     }
-// };
-
-// export default validateUser ;
