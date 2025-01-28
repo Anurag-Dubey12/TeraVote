@@ -117,11 +117,6 @@ const AuthService = {
     },
 
 
-    async followUser(data){
-        const userid=global.user._id;
-        
-    }
-
 };
 
 export default AuthService;
