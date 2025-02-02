@@ -4,6 +4,13 @@ import mongoose from "mongoose";
 import jwt from '../helper/jwtService.js';
 
 const userSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        unique: true,
+        required: true,
+        lowercase: true,
+        // match: /^[a-z0-9_\.]+$/,
+    },
     profilePicture: {
         type: String,
         required: false
@@ -19,7 +26,7 @@ const userSchema = new mongoose.Schema({
     Gender: {
         type: String,
         required: true,
-        enum:['Male','Female','Others']
+        enum: ['Male', 'Female', 'Others']
     },
     dateOfBirth: {
         type: Date,
@@ -77,19 +84,20 @@ const userSchema = new mongoose.Schema({
         minlength: 20,
         maxlength: 320
     },
-    followers: {
-        type: [{
-            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-            followedAt: { type: Date, default: Date.now }
-        }],
-        default: []
+    followingCount: {
+        type: Number,
+        default: 0,
+        required: false
     },
-    following: {
-        type: [{
-            userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-            followedAt: { type: Date, default: Date.now }
-        }],
-        default: []
+    followersCount: {
+        type: Number,
+        default: 0,
+        required: false
+    },
+    Post: {
+        type: Number,
+        default: 0,
+        required: false
     },
     isDeleted: {
         type: Boolean,
@@ -104,7 +112,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Token generation method
-userSchema.methods.generateAuthToken = async function() {
+userSchema.methods.generateAuthToken = async function () {
     const user = this;
     const payload = {
         userId: user._id,
@@ -118,23 +126,22 @@ userSchema.methods.generateAuthToken = async function() {
 };
 
 // Token removal method
-userSchema.methods.removeToken = async function(tokenToRemove) {
+userSchema.methods.removeToken = async function (tokenToRemove) {
     this.tokens = this.tokens.filter(token => token.token !== tokenToRemove);
     await this.save();
 };
 
 // Remove all tokens method
-userSchema.methods.removeAllTokens = async function() {
+userSchema.methods.removeAllTokens = async function () {
     this.tokens = [];
     await this.save();
 };
 
 // Token validation method
-userSchema.methods.hasValidToken = function(tokenToCheck) {
+userSchema.methods.hasValidToken = function (tokenToCheck) {
     return this.tokens.some(token => token.token === tokenToCheck);
 };
 
-// const User = mongoose.model("User", userSchema);
 
-// export default User;
+
 export default mongoose.model("User", userSchema);

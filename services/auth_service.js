@@ -4,50 +4,34 @@ import { User } from "../models/index.js";
 import encrypt from '../middleware/encryption.js';
 import CustomErrorHandler from '../helper/CustomErrorHandler.js';
 import user from "../models/user.js";
-
 const AuthService = {
     async CreateUser(data) {
         try {
             const {
-                profilePicture,
-                firstName,
-                lastName,
-                Gender,
-                dateOfBirth,
-                emailAddress,
-                phone,
-                password,
-                country,
-                state,
-                city,
-                Walk_of_life,
-                Interest,
-                Biography,
-                followers,
-                following
+                username, profilePicture, firstName,
+                lastName, Gender,
+                dateOfBirth, emailAddress, phone,
+                password, country, state,
+                city, Walk_of_life, Interest,
+                Biography, followersCount, followingCount, Post,
             } = data;
 
             const encryptedPassword = await encrypt.hashPassword(password);
-            
+
+            const isusernameexist = await user.findOne({
+                username: username
+            });
+            if (isusernameexist) {
+                return CustomErrorHandler.alreadyExist("Username already exist");
+            }
             const userDetails = new User({
-                profilePicture,
-                firstName,
-                lastName,
-                Gender,
-                dateOfBirth,
-                emailAddress,
-                phone,
-                password: encryptedPassword,
-                country,
-                state,
-                city,
-                Walk_of_life,
-                Interest,
-                Biography,
-                followers: followers || [],
-                following: following || [],
-                isDeleted: false,
-                isPhoneNumberVerified: false
+                username,profilePicture,firstName,
+                lastName,Gender,dateOfBirth,
+                emailAddress,phone,password: encryptedPassword,
+                country,state,city,
+                Walk_of_life,Interest,Biography,
+                followersCount,followingCount,Post,
+                isDeleted: false,isPhoneNumberVerified: false
             });
 
             const savedUser = await userDetails.save();
@@ -70,53 +54,90 @@ const AuthService = {
         }
     },
 
-    async editProfile(data){
-        const userId=global.user._id;
+    async editProfile(data) {
+        const userId = global.user._id;
         console.log(`User Id:${userId}`);
 
-        try{
+        try {
             const user = await User.findByIdAndUpdate(
                 userId,
                 { $set: data },
-                { new: true } 
+                { new: true }
             );
             if (!user) {
                 return null;
             }
             return user;
-        }catch(error){
+        } catch (error) {
             console.error("Error in AuthService.editProfile:", error);
 
         }
     },
-    async deleteUser(){
-        const userId=global.user._id;
+    async deleteUser() {
+        const userId = global.user._id;
         console.log(`User Id:${userId}`);
-        try{
+        try {
 
-        const user=await User.findById(userId);
-        if(!user){
-            return null;
+            const user = await User.findById(userId);
+            if (!user) {
+                return null;
+            }
+            user.isDeleted = true;
+            user.save();
+            return user;
+        } catch (error) {
+            console.error("Error in AuthService.deleteUser:", error);
         }
-        user.isDeleted=true;
-        user.save();
-        return user;
-    }catch(error){
-        console.error("Error in AuthService.deleteUser:", error);
-    }
     },
 
-    async getProfile(){
-        const userId=global.user._id;
+    async getProfile() {
+        const userId = global.user._id;
         console.log(`User Id:${userId}`);
-        const user=await User.findById(userId);
+        const user = await User.findById(userId);
         // if(user.isDeleted){
         //     return CustomErrorHandler.unAuthorized("User not found");
         // }
         // return user;
     },
 
+    async changeUsername(userId, newUsername) {
+        try {
+            // Ensure that the username is unique
+            const existingUser = await User.findOne({ username: newUsername });
+            if (existingUser) {
+                return {
+                    success: false,
+                    message: 'Username is already taken.',
+                };
+            }
 
+            // Update the username
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { username: newUsername },
+                { new: true } // Return the updated document
+            );
+
+            if (!updatedUser) {
+                return {
+                    success: false,
+                    message: 'User not found.',
+                };
+            }
+
+            return {
+                success: true,
+                message: 'Username updated successfully.',
+                data: updatedUser,
+            };
+        } catch (error) {
+            console.error('Error in AuthService.changeUsername:', error);
+            return {
+                success: false,
+                message: 'Internal server error.',
+            };
+        }
+    }
 };
 
 export default AuthService;

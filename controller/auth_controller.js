@@ -1,18 +1,21 @@
 // Copyright (C) 2025 TeraVote All rights reserved.
 
 import Joi from "joi";
-import {User} from "../models/index.js";
+import { User } from "../models/index.js";
 import { AuthService } from "../services/index.js";
 
 const authController = {
 
     //#region create User
-    async CreateUser(req,res,next){
+    async CreateUser(req, res, next) {
+
+        //Username must be like it must be in lowercase and must contain only letters, numbers, underscores, and periods. /^[a-z0-9_\.]+$/,
         const userSchema = Joi.object({
-            profilePicture: Joi.string().optional(), 
-            firstName: Joi.string().required(), 
-            lastName: Joi.string().optional(), 
-            Gender: Joi.string().required(), 
+            username: Joi.string().required().lowercase().min(3).max(30),
+            profilePicture: Joi.string().optional(),
+            firstName: Joi.string().required(),
+            lastName: Joi.string().optional(),
+            Gender: Joi.string().required(),
             dateOfBirth: Joi.date().required().custom((value, helpers) => {
                 const ageDiff = Date.now() - value.getTime();
                 const ageDate = new Date(ageDiff);
@@ -31,7 +34,7 @@ const authController = {
                 .messages({
                     'string.pattern.base': 'Password must be alphanumeric and contain no spaces',
                 }),
-            country: Joi.string().optional(), 
+            country: Joi.string().optional(),
             state: Joi.string().optional(),
             city: Joi.string().optional(),
             Walk_of_life: Joi.string().required(),
@@ -41,16 +44,16 @@ const authController = {
             following: Joi.array().items(Joi.string()).default([])
         });
 
-        const {error}=userSchema.validate(req.body);
-        if(error){
-            return res.status(400).json({message:error.message});
+        const { error } = userSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.message });
         }
-        try{
+        try {
             const { emailAddress } = req.body;
             if (!emailAddress || emailAddress.trim() === '') {
                 return res.status(400).json({ message: "Valid emailAddress is required" });
             }
-            
+
             // Check if user already exists
             const isDataExist = await User.findOne({
                 emailAddress: emailAddress.toLowerCase(),
@@ -61,27 +64,29 @@ const authController = {
                     new Error("User already exists with this emailAddress Address")
                 );
             }
-            const result=await AuthService.CreateUser(req.body);
+            const result = await AuthService.CreateUser(req.body);
             return res.status(201).json({
                 success: true,
                 message: "Profile created successfully",
                 data: result
             });
 
-        }catch(err){
-            console.log("Error in creating user",err);
+        } catch (err) {
+            console.log("Error in creating user", err);
         }
     },
     //#endregion
 
-    async editProfile(req,res,next){
+    //#region  Edit Profile
+    async editProfile(req, res, next) {
 
         const userSchema = Joi.object({
-            profilePicture: Joi.string().optional(), 
-            firstName: Joi.string().required(), 
+            username: Joi.string().optional().lowercase().min(3).max(30),
+            profilePicture: Joi.string().optional(),
+            firstName: Joi.string().optional(),
             lastName: Joi.string().optional(),
-            Gender: Joi.string().required(),
-            dateOfBirth: Joi.date().required().custom((value, helpers) => {
+            Gender: Joi.string().optional(),
+            dateOfBirth: Joi.date().optional().custom((value, helpers) => {
                 const ageDiff = Date.now() - value.getTime();
                 const ageDate = new Date(ageDiff);
                 const age = Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -91,22 +96,14 @@ const authController = {
                 return value;
             }, 'Age Validation'),
             phone: Joi.string().optional(),
-            password: Joi.string()
-                .min(5)
-                .pattern(/^(?=.*[a-zA-Z])(?=.*[0-9])[A-Za-z0-9]+$/)
-                .required()
-                .messages({
-                    'string.pattern.base': 'Password must be alphanumeric and contain no spaces',
-                }),
-                country: Joi.string().optional(), 
-                state: Joi.string().optional(),
-                city: Joi.string().optional(),
-            Walk_of_life: Joi.string().required(),
-            Interest: Joi.array().items(Joi.string()).required(),
-        
+            country: Joi.string().optional(),
+            state: Joi.string().optional(),
+            city: Joi.string().optional(),
+            Walk_of_life: Joi.string().optional(),
+            Interest: Joi.array().items(Joi.string()).optional(),
         });
 
-        const {error}=userSchema.validate(req.body);
+        const { error } = userSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
@@ -114,22 +111,25 @@ const authController = {
             });
         }
 
-        try{
-            const result=await AuthService.editProfile(req.body);
+        try {
+            const result = await AuthService.editProfile(req.body);
             return res.status(201).json({
                 success: true,
                 message: "Profile edited successfully",
                 data: result
             });
-        }catch(err){
-            console.log("Error in editing user Controller",err);
+        } catch (err) {
+            console.log("Error in editing user Controller", err);
         }
     },
-    async deleteUser(req,res,next){
-        try{
+    //#endregion
 
-            const result=await AuthService.deleteUser();
-            if(!result){
+    //#region delete user
+    async deleteUser(req, res, next) {
+        try {
+
+            const result = await AuthService.deleteUser();
+            if (!result) {
                 return res.status(400).json({
                     success: false,
                     message: "User not found"
@@ -140,15 +140,17 @@ const authController = {
                 message: "Profile deleted successfully",
                 data: { user: result }
             });
-        }catch(error){
-            console.log("Error in deleting user Controller",error);
+        } catch (error) {
+            console.log("Error in deleting user Controller", error);
         }
     },
+    //#endregion
 
-    async getProfile(req,res,next){
-        try{
-            const result =await AuthService.getProfile();
-            if(!result){
+    //#region get user profile
+    async getProfile(req, res, next) {
+        try {
+            const result = await AuthService.getProfile();
+            if (!result) {
                 return res.status(400).json({
                     success: false,
                     message: "User not found"
@@ -159,44 +161,63 @@ const authController = {
                 message: "Profile found successfully",
                 data: { user: result }
             });
-        }catch(error){
-            console.log("Error in getting user Controller",error);
+        } catch (error) {
+            console.log("Error in getting user Controller", error);
         }
     },
 
-    async followUser(req,res,next){
-        const userId  = req.params.userId;
-        console.log(`User id which is to be followed: ${userId}`);
-        const userSchema = Joi.object({
-            userId: Joi.string().required()
+    //#endregion
+
+    //#region change username
+    async changeUsername(req, res, next) {
+        const usernameSchema = Joi.object({
+            username: Joi.string()
+                .required()
+                .lowercase()
+                .pattern(/^[a-z0-9_\.]+$/)
+                .min(3)
+                .max(30)
+                .messages({
+                    'string.pattern.base': 'Username must only contain lowercase letters, numbers, underscores, and periods.',
+                    'string.min': 'Username must be at least 3 characters long.',
+                    'string.max': 'Username cannot exceed 30 characters.',
+                }),
         });
 
-        const {error}=userSchema.validate(req.body);
+        const { error } = usernameSchema.validate(req.body);
         if (error) {
             return res.status(400).json({
                 success: false,
-                message: error.details[0].message
+                message: error.details[0].message,
             });
         }
 
-        try{
-            const result=await AuthService.followUser(req.body);
-            if(!result){
+        try {
+            const userId = global.user._id;
+            const { username } = req.body;
+            const result = await AuthService.changeUsername(userId, username);
+
+            if (!result.success) {
                 return res.status(400).json({
                     success: false,
-                    message: "User not found"
+                    message: result.message,
                 });
             }
+
             return res.status(200).json({
                 success: true,
-                message: "User followed successfully",
-                data: { user: result }
+                message: result.message,
+                data: result.data,
             });
-        }catch(error){
-            console.log("Error in following user Controller",error);
+        } catch (error) {
+            console.error('Error in changing username', error);
+            return res.status(500).json({
+                success: false,
+                message: 'Internal server error.',
+            });
         }
     }
-
+    //#endregion
 }
 
 export default authController;

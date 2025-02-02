@@ -1,9 +1,10 @@
 // Copyright (C) 2025 TeraVote All rights reserved.
 
 import Joi from "joi";
-import { User } from "../models/index.js";
+import { User, Connection } from "../models/index.js";
 import { FollowService } from "../services/index.js";
 import CustomErrorHandler from "../helper/CustomErrorHandler.js";
+
 
 const userFollowHandler = {
 
@@ -19,14 +20,14 @@ const userFollowHandler = {
                 message: "Please Provide userToFollow"
             });
         }
+
         try {
-           const { userId } = req.params;
-            
+            const { userId } = req.params;
+
             const userToFollow = await User.findOne({
                 _id: userId,
                 isDeleted: false
             });
-
 
             if (!userToFollow) {
                 return next(CustomErrorHandler.notFound("User not found"));
@@ -39,35 +40,33 @@ const userFollowHandler = {
                 message: "Successfully followed user",
                 data: result
             });
-
-
         } catch (err) {
             return next(err);
         }
     },
 
-
     async unfollowUser(req, res, next) {
         const followSchema = Joi.object({
             userId: Joi.string().required()
         });
+
         const { error } = followSchema.validate(req.params);
         if (error) {
             return res.status(400).json({
                 success: false,
-                message: "Please Provide userTounFollow"
+                message: "Please Provide Id of the user to unfollow"
             });
         }
+
         try {
-           const { userId } = req.params;
-            
-            const userTounFollow = await User.findOne({
+            const { userId } = req.params;
+
+            const userToUnfollow = await User.findOne({
                 _id: userId,
                 isDeleted: false
             });
 
-
-            if (!userTounFollow) {
+            if (!userToUnfollow) {
                 return next(CustomErrorHandler.notFound("User not found"));
             }
 
@@ -78,6 +77,40 @@ const userFollowHandler = {
                 message: "Successfully unfollowed user",
                 data: result
             });
+        } catch (err) {
+            return next(err);
+        }
+    },
+
+    async getConnection(req, res, next) {
+        const userid = req.params.userId;
+        const type = req.params.type;
+        console.log("User Id", userid);
+        try {
+
+            const result = await FollowService.getConnection(userid,type);
+            return res.status(201).json({
+                success: true,
+                message: "Successfully Retrieved Connection",
+                data: result
+            });
+
+        } catch (err) {
+            return next(err);
+        }
+    },
+
+    async removeConnection(req, res, next) {
+        const userid = req.params.userId;
+        const type = req.params.type;
+        try {
+
+            const result = await FollowService.removeConnection(userid,type);
+            return res.status(201).json({
+                success: true,
+                message: "Successfully Removed Connection",
+                data: result
+            });
 
         } catch (err) {
             return next(err);
@@ -85,4 +118,5 @@ const userFollowHandler = {
     },
     
 }
+
 export default userFollowHandler;
