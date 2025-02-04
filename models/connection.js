@@ -29,6 +29,10 @@ const ConnectionSchema = new mongoose.Schema({
     isBlocked: {
         type: Boolean,
         default: false
+    },
+    isMuted: {
+        type: Boolean,
+        default: false
     } 
 }, {
     timestamps: true

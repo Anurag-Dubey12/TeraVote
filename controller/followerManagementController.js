@@ -8,6 +8,7 @@ import CustomErrorHandler from "../helper/CustomErrorHandler.js";
 
 const userFollowHandler = {
 
+    //#region follow user
     async followUser(req, res, next) {
         const followSchema = Joi.object({
             userId: Joi.string().required()
@@ -44,7 +45,9 @@ const userFollowHandler = {
             return next(err);
         }
     },
+    //#endregion
 
+    //#region unfollow user
     async unfollowUser(req, res, next) {
         const followSchema = Joi.object({
             userId: Joi.string().required()
@@ -82,6 +85,9 @@ const userFollowHandler = {
         }
     },
 
+    //#endregion
+
+    //#region getConnection
     async getConnection(req, res, next) {
         const userid = req.params.userId;
         const type = req.params.type;
@@ -99,7 +105,9 @@ const userFollowHandler = {
             return next(err);
         }
     },
+    //#endregion
 
+    //#region remove connection
     async removeConnection(req, res, next) {
         const userid = req.params.userId;
         const type = req.params.type;
@@ -116,7 +124,25 @@ const userFollowHandler = {
             return next(err);
         }
     },
-    
+    //#endregion
+
+    //#region Search User
+    async searchUser(req,res,next){
+        try{
+
+            const query=req.params;
+            const results = await SearchService.searchUsers(query);
+            return res.json({
+                success: true,
+                message: "Search user Successfully",
+                data: results
+            });
+
+        }catch(err){
+            return next(err);
+        }
+    }
+    //#endregion
 }
 
 export default userFollowHandler;

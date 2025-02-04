@@ -51,7 +51,8 @@ const FollowService = {
                 followedUser: userToFollow._id,
                 follower: follower._id,
                 isfollowback: existingConnection ? true : false,
-                isBlocked: false
+                isBlocked: false,
+                isMuted: false
             });
             // Save the connection
             await connectionSchema.save();
@@ -126,7 +127,7 @@ const FollowService = {
             if (type == 'following') {
                 console.log("User Id", userid);
                 const user_followers = await Connection.find({
-                    follower:userid,
+                    follower: userid,
                     isBlocked: false
                 });
                 console.log(`The document id:${user_followers._id}`);
@@ -229,6 +230,26 @@ const FollowService = {
             console.log("Error in removing connection", err);
             throw err;
         }
+    },
+
+    async searchUsers(query) {
+        const currentuser=global.user._id;
+        try{
+            const query={
+                _id:{$ne:currentuser},
+                $or:[
+                    { username: { $regex: searchQuery, $options: 'i' } },
+                    { firstName: { $regex: searchQuery, $options: 'i' } },
+                    { lastName: { $regex: searchQuery, $options: 'i' } }
+                ]
+            };
+            let users = await User.find(baseQuery)
+                .select('_id username firstName lastName profilePicture followersCount followingCount bio')
+                .limit(100);
+        }catch(err){
+            console.log(`failed to get search user:${err}`)
+        }
+
     }
 };
 
