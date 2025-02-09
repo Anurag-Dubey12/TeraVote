@@ -77,6 +77,95 @@ const authController = {
     },
     //#endregion
 
+
+    //#region login
+    async login(req, res, next) {
+        const { emailAddress, phone, password } = req.body;
+    
+        // Validate fields
+        if (!emailAddress && !phone) {
+            return res.status(400).json({ message: "Email Address or Phone is required" });
+        }
+        if (!password) {
+            return res.status(400).json({ message: "Password is required" });
+        }
+    
+        try {
+            const result = await AuthService.login({ emailAddress, phone, password });
+            
+            if (result.success) {
+                return res.status(200).json({
+                    success: true,
+                    message: "Login successful",
+                    data: result.user,
+                    token: result.token
+                });
+            } else {
+                return res.status(400).json({ message: result.message });
+            }
+        } catch (err) {
+            console.log("Error in login", err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    //#endregion
+
+    //#region forget password
+    async forgotPassword(req, res, next) {
+        const { emailAddress, phone } = req.body;
+        
+        if (!emailAddress && !phone) {
+            return res.status(400).json({ message: "Email Address or Phone number is required" });
+        }
+    
+        try {
+            const otpResult = await AuthService.generateOTP({ emailAddress, phone });
+    
+            if (otpResult.success) {
+                return res.status(200).json({
+                    success: true,
+                    message: "OTP sent successfully",
+                    otpExpiry: otpResult.expiry
+                });
+            } else {
+                return res.status(400).json({ message: otpResult.message });
+            }
+        } catch (err) {
+            console.log("Error in forgotPassword", err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+
+    //#endregion
+
+    
+    //#region  Verify OTP and reset password
+    async resetPassword(req, res, next) {
+        const { otp, newPassword } = req.body;
+    
+        if (!otp || !newPassword) {
+            return res.status(400).json({ message: "OTP and New Password are required" });
+        }
+    
+        try {
+            const result = await AuthService.resetPassword(otp, newPassword);
+            
+            if (result.success) {
+                return res.status(200).json({
+                    success: true,
+                    message: "Password reset successful",
+                });
+            } else {
+                return res.status(400).json({ message: result.message });
+            }
+        } catch (err) {
+            console.log("Error in resetPassword", err);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    },
+    //#endregion
+
+
     //#region  Edit Profile
     async editProfile(req, res, next) {
 

@@ -54,6 +54,70 @@ const AuthService = {
         }
     },
 
+
+     async login({ emailAddress, phone, password }) {
+        let user;
+
+        if (emailAddress) {
+            user = await User.findOne({ emailAddress: emailAddress.toLowerCase() });
+        } else if (phone) {
+            user = await User.findOne({ phone: phone });
+        }
+
+        if (!user) {
+            return { success: false, message: "User not found" };
+        }
+
+        const isPasswordMatch = await user.comparePassword(password);
+        if (!isPasswordMatch) {
+            return { success: false, message: "Invalid credentials" };
+        }
+
+        const token = await user.generateAuthToken(); // Assuming generateAuthToken method is defined on User model
+
+        return {
+            success: true,
+            user,
+            token
+        };
+    },
+
+    // Generate OTP
+    async generateOTP({ emailAddress, phone }) {
+        const user = await User.findOne({ emailAddress, phone });
+        if (!user) {
+            return { success: false, message: "User not found" };
+        }
+
+        const otp = generateOTP();
+        const expiry = Date.now() + 10 * 60 * 1000; // OTP valid for 10 minutes
+
+        // Save OTP and expiry in the user's profile (you can also send OTP through SMS or Email)
+        user.otp = otp;
+        user.otpExpiry = expiry;
+        await user.save();
+
+        // Send OTP via email or phone (use an email service like NodeMailer or SMS service like Twilio)
+        await sendOTP(user, otp); // Assume this is a utility function to send OTP
+
+        return { success: true, otpExpiry: expiry };
+    },
+
+    // Reset Password
+    async resetPassword(otp, newPassword) {
+        const user = await User.findOne({ otp });
+        if (!user || user.otpExpiry < Date.now()) {
+            return { success: false, message: "OTP expired or invalid" };
+        }
+
+        user.password = newPassword;
+        user.otp = undefined; 
+        user.otpExpiry = undefined; // Reset OTP expiry
+        await user.save();
+
+        return { success: true };
+    },
+
     async editProfile(data) {
         const userId = global.user._id;
         console.log(`User Id:${userId}`);
