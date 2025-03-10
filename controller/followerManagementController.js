@@ -141,8 +141,10 @@ const userFollowHandler = {
         }catch(err){
             return next(err);
         }
-    }
+    },
     //#endregion
+
+ 
 }
 
 export default userFollowHandler;

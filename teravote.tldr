@@ -17,11 +17,11 @@
 			"com.tldraw.asset.image": 5,
 			"com.tldraw.asset.video": 5,
 			"com.tldraw.shape.group": 0,
-			"com.tldraw.shape.text": 2,
+			"com.tldraw.shape.text": 3,
 			"com.tldraw.shape.bookmark": 2,
 			"com.tldraw.shape.draw": 2,
-			"com.tldraw.shape.geo": 9,
-			"com.tldraw.shape.note": 8,
+			"com.tldraw.shape.geo": 10,
+			"com.tldraw.shape.note": 9,
 			"com.tldraw.shape.line": 5,
 			"com.tldraw.shape.frame": 0,
 			"com.tldraw.shape.arrow": 5,
@@ -66,12 +66,25 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "Need to add a different schema for follower/following",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Need to add a different schema for follower/following"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a1",
@@ -103,12 +116,25 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "I had changed Follow schema but need to see isfollowback and need to modify the schema for more optimization",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "I had changed Follow schema but need to see isfollowback and need to modify the schema for more optimization"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a29WK",
@@ -133,12 +159,25 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "i i just user existing connection then it creates a another document  ",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 1.8734511629934032
+				"scale": 1.8734511629934032,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "i i just user existing connection then it creates a another document  "
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a4A3N",
@@ -163,12 +202,25 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "but i want to make sure isfollowed back is set to true",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 1.8734511629934032
+				"scale": 1.8734511629934032,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "but i want to make sure isfollowed back is set to true"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a51aN",
@@ -221,7 +273,6 @@
 			"props": {
 				"color": "black",
 				"size": "m",
-				"text": "i want to set it true if both the user follow each other",
 				"font": "draw",
 				"align": "middle",
 				"verticalAlign": "middle",
@@ -229,7 +280,21 @@
 				"growY": 0,
 				"fontSizeAdjustment": 22,
 				"url": "",
-				"scale": 1.8734511629934032
+				"scale": 1.8734511629934032,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "i want to set it true if both the user follow each other"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a7AuP",
@@ -247,7 +312,6 @@
 			"props": {
 				"color": "red",
 				"size": "m",
-				"text": "i have to see remove connection status where if it is remove then isfollowedback should be chnaged and also remove function with id",
 				"font": "draw",
 				"align": "middle",
 				"verticalAlign": "middle",
@@ -255,7 +319,21 @@
 				"growY": 172.20001220703125,
 				"fontSizeAdjustment": 21,
 				"url": "",
-				"scale": 2.4720291529378686
+				"scale": 2.4720291529378686,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "i have to see remove connection status where if it is remove then isfollowedback should be chnaged and also remove function with id"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a81U2",
@@ -280,12 +358,19 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 2.4720291529378686
+				"scale": 2.4720291529378686,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "a99a4",
@@ -310,12 +395,25 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "add user name field and assign a dummy username to the user at the starting of an application",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 291.9219151114649,
 				"url": "",
-				"scale": 2.939797193173923
+				"scale": 2.939797193173923,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "add user name field and assign a dummy username to the user at the starting of an application"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "aABk4",
@@ -340,12 +438,19 @@
 				"dash": "dotted",
 				"size": "m",
 				"font": "draw",
-				"text": "",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 2.939797193173923
+				"scale": 2.939797193173923,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "aB4yG",
@@ -370,7 +475,6 @@
 			"props": {
 				"color": "black",
 				"size": "m",
-				"text": "I want to show search suggestion and home screen content ",
 				"font": "draw",
 				"align": "middle",
 				"verticalAlign": "middle",
@@ -378,7 +482,21 @@
 				"growY": 10.199996948242188,
 				"fontSizeAdjustment": 22,
 				"url": "",
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "I want to show search suggestion and home screen content "
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:274PPWjgSuKBKevhLo0FY",
 			"index": "a1",
@@ -1182,11 +1300,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 510.4250183105469,
-				"text": "Search Suggestion and home screen feed",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Search Suggestion and home screen feed"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:274PPWjgSuKBKevhLo0FY",
 			"index": "a89Es",
@@ -1205,11 +1336,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 158.40000915527344,
-				"text": "Home Screen",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Home Screen"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:274PPWjgSuKBKevhLo0FY",
 			"index": "a98F8",
@@ -1228,11 +1372,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 83.76250457763672,
-				"text": "Search",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Search"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:274PPWjgSuKBKevhLo0FY",
 			"index": "aA9r1",
@@ -1250,7 +1407,6 @@
 			"props": {
 				"color": "red",
 				"size": "m",
-				"text": "Need to do search api and make also add profile visited ,most liked user post and other filed for search query",
 				"font": "draw",
 				"align": "middle",
 				"verticalAlign": "middle",
@@ -1258,7 +1414,21 @@
 				"growY": 99.30001831054688,
 				"fontSizeAdjustment": 22,
 				"url": "",
-				"scale": 5.646434578385022
+				"scale": 5.646434578385022,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Need to do search api and make also add profile visited ,most liked user post and other filed for search query"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "aC9C4",
@@ -1277,11 +1447,24 @@
 				"color": "red",
 				"size": "m",
 				"w": 2350.8930711737057,
-				"text": "Important Need to be focus more",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 5.646434578385022
+				"scale": 5.646434578385022,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Important Need to be focus more"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "aDBof",
@@ -1306,12 +1489,19 @@
 				"dash": "draw",
 				"size": "m",
 				"font": "draw",
-				"text": "",
 				"align": "middle",
 				"verticalAlign": "middle",
 				"growY": 0,
 				"url": "",
-				"scale": 5.646434578385022
+				"scale": 5.646434578385022,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				}
 			},
 			"parentId": "page:page",
 			"index": "aE38v",
@@ -1330,11 +1520,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 209.47500610351562,
-				"text": "Api Making Flow",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Api Making Flow"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "a1",
@@ -1353,11 +1556,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 659.7999877929688,
-				"text": "Auth Api(login Api is remaining and google auth api)",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Auth Api(login Api is remaining and google auth api)"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "a348E",
@@ -1411,11 +1627,24 @@
 				"color": "black",
 				"size": "m",
 				"w": 487.1499938964844,
-				"text": "Profile Creation (if User is not register)",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Profile Creation (if User is not register)"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "a5BEy",
@@ -1469,11 +1698,24 @@
 				"color": "black",
 				"size": "s",
 				"w": 747.5750122070312,
-				"text": "Post Creation and also post view (need to see if we can add like and comment )",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Post Creation and also post view (need to see if we can add like and comment )"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "a71f8",
@@ -1527,11 +1769,24 @@
 				"color": "black",
 				"size": "s",
 				"w": 168.2624969482422,
-				"text": "Dashboard Screen",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Dashboard Screen"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "a91Du",
@@ -1585,11 +1840,24 @@
 				"color": "black",
 				"size": "s",
 				"w": 348.3000183105469,
-				"text": "Explore Screen based on requirement",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Explore Screen based on requirement"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "aB8fr",
@@ -1643,11 +1911,24 @@
 				"color": "black",
 				"size": "s",
 				"w": 787.25,
-				"text": "Change username and other notification ,muted,block and delete account,search api",
 				"font": "draw",
 				"textAlign": "start",
 				"autoSize": true,
-				"scale": 1
+				"scale": 1,
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"content": [
+								{
+									"type": "text",
+									"text": "Change username and other notification ,muted,block and delete account,search api"
+								}
+							]
+						}
+					]
+				}
 			},
 			"parentId": "page:ew9puwcGDRDzwUb6-DnAt",
 			"index": "aD71A",
@@ -1656,9 +1937,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 437.6934783419606,
-			"y": 214.94751113700062,
-			"lastActivityTimestamp": 1738727678719,
+			"x": 778.4000244140625,
+			"y": 485.6000671386719,
+			"lastActivityTimestamp": 1741621745911,
 			"meta": {}
 		},
 		{
@@ -1668,7 +1949,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "cross",
+				"type": "move",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -1678,7 +1959,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1187.2000732421875,
+				"w": 1196,
 				"h": 749.6000366210938
 			},
 			"insets": [
@@ -1703,7 +1984,7 @@
 			"meta": {},
 			"duplicateProps": null,
 			"id": "instance:instance",
-			"currentPageId": "page:ew9puwcGDRDzwUb6-DnAt",
+			"currentPageId": "page:0qGOBeXyGFozvCeOFKWM1",
 			"typeName": "instance"
 		},
 		{
@@ -1722,7 +2003,9 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [],
+			"selectedShapeIds": [
+				"shape:iQfb0QKsNEI4qiSaZqY-N"
+			],
 			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
@@ -1754,20 +2037,203 @@
 			"typeName": "camera"
 		},
 		{
-			"x": 304.1857932826954,
-			"y": 313.76947527001136,
+			"x": 311.01189437719916,
+			"y": 3.489570340411433,
 			"z": 0.644579287354682,
 			"meta": {},
 			"id": "camera:page:ew9puwcGDRDzwUb6-DnAt",
 			"typeName": "camera"
 		},
 		{
-			"x": 2451.8974203371968,
-			"y": 1670.3801981880874,
-			"z": 0.19695468476461614,
+			"x": 2449.270722160273,
+			"y": 1654.9975962379738,
+			"z": 0.19855973153110515,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
+		},
+		{
+			"meta": {},
+			"id": "page:0qGOBeXyGFozvCeOFKWM1",
+			"name": "Page 1",
+			"index": "a43cS",
+			"typeName": "page"
+		},
+		{
+			"x": 0,
+			"y": 0,
+			"z": 1,
+			"meta": {},
+			"id": "camera:page:0qGOBeXyGFozvCeOFKWM1",
+			"typeName": "camera"
+		},
+		{
+			"editingShapeId": null,
+			"croppingShapeId": null,
+			"selectedShapeIds": [
+				"shape:xLmVss5wTB3_bM3xCZ9M_"
+			],
+			"hoveredShapeId": null,
+			"erasingShapeIds": [],
+			"hintingShapeIds": [],
+			"focusedGroupId": null,
+			"meta": {},
+			"id": "instance_page_state:page:0qGOBeXyGFozvCeOFKWM1",
+			"pageId": "page:0qGOBeXyGFozvCeOFKWM1",
+			"typeName": "instance_page_state"
+		},
+		{
+			"x": 444,
+			"y": 72.80003356933594,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:3j1NbbJotveNIXFjSUeo_",
+			"type": "note",
+			"props": {
+				"color": "black",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "Agar user ne lat and log nhi diya tho pass ke post nhi dikhenge "
+								}
+							]
+						}
+					]
+				},
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"labelColor": "black",
+				"growY": 0,
+				"fontSizeAdjustment": 22,
+				"url": "",
+				"scale": 1
+			},
+			"parentId": "page:0qGOBeXyGFozvCeOFKWM1",
+			"index": "a1",
+			"typeName": "shape"
+		},
+		{
+			"x": 177.60000610351562,
+			"y": 324.8000183105469,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:fUmAny5JYavKu0jxSYTPz",
+			"type": "note",
+			"props": {
+				"color": "black",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							},
+							"content": [
+								{
+									"type": "text",
+									"text": "user agar koi post ko intreseted kar rha hai tho wo category ke post user ko dikhenge"
+								}
+							]
+						}
+					]
+				},
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"labelColor": "black",
+				"growY": 39.90000915527344,
+				"fontSizeAdjustment": 22,
+				"url": "",
+				"scale": 1
+			},
+			"parentId": "page:0qGOBeXyGFozvCeOFKWM1",
+			"index": "a2BmV",
+			"typeName": "shape"
+		},
+		{
+			"x": 692,
+			"y": 266.3999938964844,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:RMUrIKFbI0yPr_EYPWQd7",
+			"type": "note",
+			"props": {
+				"color": "black",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph",
+							"attrs": {
+								"dir": "auto"
+							}
+						}
+					]
+				},
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"labelColor": "black",
+				"growY": 0,
+				"fontSizeAdjustment": 0,
+				"url": "",
+				"scale": 1
+			},
+			"parentId": "page:0qGOBeXyGFozvCeOFKWM1",
+			"index": "a34K4",
+			"typeName": "shape"
+		},
+		{
+			"x": 698.4000244140625,
+			"y": 490.40008544921875,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:xLmVss5wTB3_bM3xCZ9M_",
+			"type": "note",
+			"props": {
+				"color": "black",
+				"richText": {
+					"type": "doc",
+					"content": [
+						{
+							"type": "paragraph"
+						}
+					]
+				},
+				"size": "m",
+				"font": "draw",
+				"align": "middle",
+				"verticalAlign": "middle",
+				"labelColor": "black",
+				"growY": 0,
+				"fontSizeAdjustment": 0,
+				"url": "",
+				"scale": 1
+			},
+			"parentId": "page:0qGOBeXyGFozvCeOFKWM1",
+			"index": "a45AN",
+			"typeName": "shape"
 		}
 	]
 }

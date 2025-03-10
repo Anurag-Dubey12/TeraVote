@@ -78,6 +78,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['Business', 'Current Affairs', 'India', 'World', 'Technology', 'Science', 'Health', 'Movies', 'Biography']
     },
+
+    InterestedIn:{
+        type: [String],
+        required: true,
+        enum: ['Business', 'Current Affairs', 'India', 'World', 'Technology', 'Science', 'Health', 'Movies', 'Biography']
+    },
     Biography: {
         type: String,
         required: false,

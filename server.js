@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { APP_PORT, MONGO_DB_URL } from "./config/index.js";
 import cors from 'cors';
 // import fileUpload from 'express-fileupload';
-import {authRoute,followRoute} from "./routes/index.js";
+import {authRoute,followRoute,PostRoute} from "./routes/index.js";
 
 
 const app = express();
@@ -28,6 +28,7 @@ app.use(express.json({ limit: "50mb" }));
 // Routes
 app.use("/api/auth", authRoute);
 app.use("/api/connect", followRoute);
+app.use("/api/Post", PostRoute);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
